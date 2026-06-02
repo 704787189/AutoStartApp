@@ -41,12 +41,40 @@
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="保存并开始"
+            android:text="下一步"
             android:textSize="18sp"
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp" />
+
+    </LinearLayout>
+
+    <!-- 应用选择界面 -->
+    <LinearLayout
+        android:id="@+id/layout_app_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_app_select_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请选择要启动的应用："
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="10dp" />
+
+        <ListView
+            android:id="@+id/lv_apps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:divider="#E0E0E0"
+            android:dividerHeight="1dp" />
 
     </LinearLayout>
 
