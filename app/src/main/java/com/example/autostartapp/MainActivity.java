@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -28,7 +27,6 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = "MainActivity";
     private static final String PREFS_NAME = "AutoStartAppPrefs";
     private static final String KEY_COUNTDOWN = "countdown_seconds";
     private static final String KEY_FIRST_RUN = "first_run";
@@ -237,7 +235,6 @@ public class MainActivity extends Activity {
     private void startCountdown() {
         currentCountdown = countdownSeconds;
         updateCountdownText(currentCountdown);
-        Log.d(TAG, "开始倒计时：" + countdownSeconds + "秒");
 
         if (currentCountdown > 0) {
             handler.sendEmptyMessageDelayed(1, 1000);
@@ -249,29 +246,22 @@ public class MainActivity extends Activity {
     private void updateCountdownText(int seconds) {
         String text = "倒计时: " + seconds + " 秒";
         tvCountdown.setText(text);
-        Log.d(TAG, text);
     }
 
     private void killTargetApp() {
         if (targetPackage.isEmpty()) {
-            Log.e(TAG, "目标应用包名未设置");
             return;
         }
         
-        Log.d(TAG, "正在杀掉目标应用进程...");
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         
         try {
             am.killBackgroundProcesses(targetPackage);
-            Log.d(TAG, "已使用 killBackgroundProcesses 尝试结束: " + targetPackage);
             
             try {
                 String cmd = "am force-stop " + targetPackage;
-                Log.d(TAG, "尝试执行命令: " + cmd);
                 Runtime.getRuntime().exec(cmd);
-                Log.d(TAG, "已通过 am force-stop 命令尝试结束: " + targetPackage);
-            } catch (Exception e) {
-                Log.w(TAG, "am force-stop 命令执行失败 (这是正常的，普通应用通常没有此权限): " + e.getMessage());
+            } catch (Exception ignored) {
             }
             
             try {
@@ -280,22 +270,20 @@ public class MainActivity extends Activity {
                 Thread.currentThread().interrupt();
             }
             
-        } catch (Exception e) {
-            Log.e(TAG, "杀进程失败: " + e.getMessage());
+        } catch (Exception ignored) {
         }
     }
 
     private void executeTargetApp() {
         if (targetPackage.isEmpty() || targetActivity.isEmpty()) {
-            Log.e(TAG, "目标应用未设置");
             tvCountdown.setText("目标应用未设置！");
             return;
         }
         
-        Log.d(TAG, "倒计时结束，先杀进程再启动目标应用...");
-        tvCountdown.setText("正在重启目标应用...");
-
+        tvCountdown.setText("正在结束目标应用进程...");
         killTargetApp();
+        
+        tvCountdown.setText("正在启动目标应用...");
 
         try {
             Intent launchIntent = new Intent(Intent.ACTION_MAIN);
@@ -305,8 +293,7 @@ public class MainActivity extends Activity {
 
             startActivity(launchIntent);
 
-            Log.d(TAG, "已发送启动意图到: " + targetPackage + "/" + targetActivity);
-            tvCountdown.setText("已重启目标应用！");
+            tvCountdown.setText("已启动目标应用！");
 
             handler.postDelayed(new Runnable() {
                 @Override
@@ -316,15 +303,12 @@ public class MainActivity extends Activity {
             }, 2000);
 
         } catch (Exception e) {
-            Log.e(TAG, "启动失败: " + e.getMessage());
 
             try {
                 String cmd = "am start -S -n " + targetPackage + "/" + targetActivity;
-                Log.d(TAG, "尝试执行命令: " + cmd);
                 Runtime.getRuntime().exec(cmd);
-                tvCountdown.setText("已通过am命令重启！");
+                tvCountdown.setText("已通过am命令启动目标应用！");
             } catch (Exception e2) {
-                Log.e(TAG, "am命令执行失败: " + e2.getMessage());
                 tvCountdown.setText("启动失败: " + e.getMessage());
             }
         }

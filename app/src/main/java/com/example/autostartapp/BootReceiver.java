@@ -3,16 +3,11 @@ package com.example.autostartapp;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
-
 /**
  * 开机广播接收器
  * 收到BOOT_COMPLETED广播后启动MainActivity
  */
 public class BootReceiver extends BroadcastReceiver {
-
-    private static final String TAG = "BootReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -20,8 +15,6 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)
                 || "android.intent.action.QUICKBOOT_POWERON".equals(action)) {
-
-            Log.d(TAG, "收到开机广播，准备启动倒计时...");
 
             // 启动MainActivity，MainActivity中会执行倒计时
             Intent mainIntent = new Intent(context, MainActivity.class);
