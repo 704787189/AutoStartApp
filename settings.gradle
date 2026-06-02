@@ -1,1 +1,2 @@
-rootProject.projectDir = file("${rootDir}")
+rootProject.name = 'AutoStartApp'
+include ':app'
