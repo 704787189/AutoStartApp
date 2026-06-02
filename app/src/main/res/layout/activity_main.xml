@@ -4,57 +4,79 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#FFFFFF"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="#F5F5F5">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- 设置界面 -->
+    <LinearLayout
+        android:id="@+id/layout_settings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开机自启动APP"
-        android:textSize="24sp"
-        android:textColor="#333333"
-        android:textStyle="bold"
-        android:layout_marginBottom="20dp"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="系统启动后将自动执行以下操作："
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tv_setting_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="首次启动，请设置倒计时时间（秒）："
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1. 等待10秒倒计时"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="5dp"/>
+        <EditText
+            android:id="@+id/et_countdown"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="10"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:background="#FFFFFF"
+            android:padding="15dp"
+            android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2. 再等待5秒"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="5dp"/>
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存并开始"
+            android:textSize="18sp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3. 启动目标应用"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        android:layout_marginBottom="40dp"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_countdown"
-        android:layout_width="wrap_content"
+    <!-- 倒计时界面 -->
+    <LinearLayout
+        android:id="@+id/layout_countdown"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="倒计时: 10 秒"
-        android:textSize="32sp"
-        android:textColor="#2196F3"
-        android:textStyle="bold"/>
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开机自启动"
+            android:textSize="24sp"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp" />
+
+        <TextView
+            android:id="@+id/tv_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="倒计时: 10 秒"
+            android:textSize="36sp"
+            android:textColor="#FF5722"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>
