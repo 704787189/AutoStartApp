@@ -34,7 +34,6 @@ public class MainActivity extends Activity {
     private TextView tvSettingLabel;
     private EditText etCountdown;
     private Button btnSave;
-    private Button btnStart;
     private View layoutSettings;
     private View layoutCountdown;
 
@@ -68,7 +67,6 @@ public class MainActivity extends Activity {
         tvSettingLabel = findViewById(R.id.tv_setting_label);
         etCountdown = findViewById(R.id.et_countdown);
         btnSave = findViewById(R.id.btn_save);
-        btnStart = findViewById(R.id.btn_start);
         layoutSettings = findViewById(R.id.layout_settings);
         layoutCountdown = findViewById(R.id.layout_countdown);
 
@@ -76,15 +74,6 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 saveSettings();
-            }
-        });
-
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                layoutSettings.setVisibility(View.GONE);
-                showCountdownView();
-                startCountdown();
             }
         });
 
